@@ -3,7 +3,7 @@ import {Resources} from "./resources.js";
 
 export class Corgi extends Actor {
     constructor(posX, posY) {
-        super({width: Resources.Corgi.width, height: Resources.Corgi.height})
+        super({width: 100, height: Resources.Corgi.height})
         this.pos = new Vector(posX, posY)
         this.body.collisionType = CollisionType.Active
         this.body.useGravity = true

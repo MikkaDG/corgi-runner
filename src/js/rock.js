@@ -4,8 +4,8 @@ import {Resources} from "./resources.js";
 export class Rock extends Actor {
     constructor() {
         super({
-            width: 160,
-            height: Resources.Ground.height,
+            width: Resources.Rock.width,
+            height: Resources.Rock.height,
             pos: new Vector(800, 560),
         })
         this.body.useGravity = true

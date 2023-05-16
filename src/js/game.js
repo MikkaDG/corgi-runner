@@ -27,10 +27,10 @@ export class Game extends Engine {
 // Beweeg de speler naar links of rechts wanneer de linker- of rechterpijltoets wordt ingedrukt
         this.input.keyboard.on("down", (evt) => {
             if (evt.key === "ArrowLeft") {
-                player.vel.x = -100; // verplaats de speler met een snelheid van -100 pixels per seconde naar links
+                player.vel.x = -300; // verplaats de speler met een snelheid van -100 pixels per seconde naar links
                 // player.scale.x = -1;
             } else if (evt.key === "ArrowRight") {
-                player.vel.x = 100; // verplaats de speler met een snelheid van 100 pixels per seconde naar rechts
+                player.vel.x = 300; // verplaats de speler met een snelheid van 100 pixels per seconde naar rechts
                 // player.scale.x = 1;
             }
         });
