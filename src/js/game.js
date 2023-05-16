@@ -3,6 +3,7 @@ import {Actor, Engine, Physics, Vector} from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import {Corgi} from "./corgi.js";
 import {Ground} from "./ground.js";
+import {Rock} from "./rock.js";
 
 export class Game extends Engine {
 
@@ -20,12 +21,17 @@ export class Game extends Engine {
         const ground = new Ground()
         this.add(ground)
 
+        const rock = new Rock()
+        this.add(rock)
+
 // Beweeg de speler naar links of rechts wanneer de linker- of rechterpijltoets wordt ingedrukt
         this.input.keyboard.on("down", (evt) => {
             if (evt.key === "ArrowLeft") {
                 player.vel.x = -100; // verplaats de speler met een snelheid van -100 pixels per seconde naar links
+                // player.scale.x = -1;
             } else if (evt.key === "ArrowRight") {
                 player.vel.x = 100; // verplaats de speler met een snelheid van 100 pixels per seconde naar rechts
+                // player.scale.x = 1;
             }
         });
 
