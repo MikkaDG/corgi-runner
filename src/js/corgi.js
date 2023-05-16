@@ -23,11 +23,11 @@ export class Corgi extends Actor {
 
     jump(){
         console.log("jump")
-        this.vel = this.vel.add(new Vector(0,-200))
+        this.vel = this.vel.add(new Vector(0,-600))
     }
 
     fall(){
-        this.vel = this.vel.add(new Vector(0,40))
+        this.vel = this.vel.add(new Vector(0,100))
     }
 
 }
