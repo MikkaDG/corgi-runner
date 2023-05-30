@@ -1,17 +1,24 @@
 import {ImageSource, Sound, Resource, Loader} from 'excalibur'
-import corgiImage from '../images/corgi.png'
+import mandoImage from '../images/mando.png'
 import groundImage from '../images/ground.png'
 import rockImage from '../images/rock.png'
+import backgroundImage from '../images/background.png'
+import stormtrooperImage from '../images/stormtrooper.png'
+import ceilingImage from '../images/ceiling.png'
 
 const Resources = {
-    Corgi: new ImageSource(corgiImage),
+    Mando: new ImageSource(mandoImage),
     Ground: new ImageSource(groundImage),
-    Rock: new ImageSource(rockImage)
+    Rock: new ImageSource(rockImage),
+    Background: new ImageSource(backgroundImage),
+    Stormtrooper: new ImageSource(stormtrooperImage),
+    Ceiling: new ImageSource(ceilingImage),
 }
-const ResourceLoader = new Loader([
-    Resources.Corgi,
-    Resources.Ground,
-    Resources.Rock
-])
 
-export {Resources, ResourceLoader}
+// met deze for loop hoef je niet alles handmatig in de loader te zetten
+const resourceArray = []
+for (const key in Resources) {
+    resourceArray.push(Resources[key])
+}
+const ResourceLoader = new Loader(resourceArray)
+export { Resources, ResourceLoader }

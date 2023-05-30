@@ -14,5 +14,7 @@ export class Rock extends Actor {
     onInitialize(engine) {
         this.graphics.use(Resources.Rock.toSprite())
         this.body.collisionType = CollisionType.Fixed
+        this.body.useGravity = true
+        this.vel = new Vector(-110, 0)
     }
 }

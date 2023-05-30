@@ -1,12 +1,12 @@
 import {Actor, CollisionType, Engine, GraphicsGroup, Input, Shape, Vector} from "excalibur";
 import {Resources} from "./resources.js";
 
-export class Ground extends Actor {
+export class Ground2 extends Actor {
     constructor() {
         super({
             width: Resources.Ground.width,
             height: Resources.Ground.height,
-            pos: new Vector(500, 760)
+            pos: new Vector(2500, 760)
         })
     }
 
@@ -20,9 +20,6 @@ export class Ground extends Actor {
     onPreUpdate(engine, delta) {
         if (this.pos.x < -780) {
             this.pos = new Vector(3200, Math.random() * 300 + 560)
-        }
-        if (this.pos.x < -780) {
-            engine.spawnStormtrooper()
         }
     }
 }
