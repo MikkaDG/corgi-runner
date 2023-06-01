@@ -3,7 +3,7 @@ import {Resources} from './resources.js';
 import {Game} from './game.js';
 
 
-export class Background extends Actor {
+export class StartBackground extends Actor {
     game;
     offset;
 
@@ -34,7 +34,6 @@ export class Background extends Actor {
     onPostUpdate(engine, delta) {
         if (this.pos.x < -this.offset) {
             this.pos = new Vector(0, 0);
-            this.game.currentScene.spawnEnemy();
         }
     }
 }

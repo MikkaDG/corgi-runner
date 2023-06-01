@@ -23,13 +23,21 @@ export class Mando extends Actor {
         }
     }
 
-    onPreUpdate(engine) {
+    onPreUpdate(engine, delta) {
         if (engine.input.keyboard.wasPressed(Input.Keys.Space)) {
             this.jump();
         }
 
         if (engine.input.keyboard.wasReleased(Input.Keys.Space)) {
             this.fall();
+        }
+
+        if (
+            this.pos.x < -100 ||
+            this.pos.x > 1600 ||
+            this.pos.y > 900) {
+            // Verwijder de actor
+            this.pos = new Vector(200, 400);
         }
 
     }

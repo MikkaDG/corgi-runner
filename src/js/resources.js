@@ -5,6 +5,7 @@ import rockImage from '../images/rock.png'
 import backgroundImage from '../images/background.png'
 import stormtrooperImage from '../images/stormtrooper.png'
 import ceilingImage from '../images/ceiling.png'
+import probedroidImage from '../images/probedroid.png'
 
 const Resources = {
     Mando: new ImageSource(mandoImage),
@@ -13,6 +14,7 @@ const Resources = {
     Background: new ImageSource(backgroundImage),
     Stormtrooper: new ImageSource(stormtrooperImage),
     Ceiling: new ImageSource(ceilingImage),
+    Probedroid: new ImageSource(probedroidImage),
 }
 
 // met deze for loop hoef je niet alles handmatig in de loader te zetten
