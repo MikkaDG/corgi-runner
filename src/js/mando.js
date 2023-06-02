@@ -1,6 +1,11 @@
-import {Actor, CollisionType, Engine, Input, Vector} from 'excalibur';
+import {Actor, CollisionType, Engine, Scene, Input, Vector} from 'excalibur';
 import {Resources} from './resources.js';
 import {Enemy} from './enemy.js';
+import {Ground} from './ground.js';
+import {Ground2} from './ground2.js';
+import {DarthVader} from './darthvader.js';
+import {Stormtrooper} from './stormtrooper.js';
+import {RunMando} from './runmando.js';
 
 export class Mando extends Actor {
     constructor(posX, posY) {
@@ -13,18 +18,10 @@ export class Mando extends Actor {
         this.body.useGravity = true;
         this.graphics.use(Resources.Mando.toSprite());
         this.scale = new Vector(0.8, 0.8);
-        this.on('collisionstart', (event) => this.hitSomething(event));
-    }
-
-    hitSomething(event) {
-        console.log(event);
-        if (event.other instanceof Enemy) {
-            this.kill();
-        }
     }
 
     onPreUpdate(engine, delta) {
-        if (engine.input.keyboard.wasPressed(Input.Keys.Space)) {
+        if (engine.input.keyboard.wasPressed(Input.Keys.Space) && this.vel.y === 0) {
             this.jump();
         }
 
@@ -35,9 +32,15 @@ export class Mando extends Actor {
         if (
             this.pos.x < -100 ||
             this.pos.x > 1600 ||
+            this.pos.y < -100
+        ) {
+            this.vel = new Vector(0, 0);
+            this.pos = new Vector(750, 450);
+        }
+        if (
             this.pos.y > 900) {
-            // Verwijder de actor
-            this.pos = new Vector(200, 400);
+            this.kill();
+            engine.goToScene('gameover');
         }
 
     }
@@ -45,11 +48,10 @@ export class Mando extends Actor {
     jump() {
         console.log('jump');
         this.vel = this.vel.add(new Vector(0, -600));
+
     }
 
     fall() {
-        this.vel = this.vel.add(new Vector(0, 200));
+        this.vel = this.vel.add(new Vector(0, 100));
     }
-
-
 }

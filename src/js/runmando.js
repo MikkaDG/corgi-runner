@@ -7,6 +7,7 @@ import {Background} from './background.js';
 import {Stormtrooper} from './stormtrooper.js';
 import {Ground2} from './ground2.js';
 import {Ceiling} from './ceiling.js';
+import {DarthVader} from './darthvader.js';
 
 export class RunMando extends Scene {
 
@@ -29,16 +30,30 @@ export class RunMando extends Scene {
         const player = new Mando(250, 600);
         this.add(player);
 
-        const scoreLabel = new Label('Score: 0');
-        scoreLabel.pos = new Vector(50, 50);
-        scoreLabel.fontSize = 30;
-        scoreLabel.color = 'white';
-        this.add(scoreLabel);
+        let lives = 3
 
-        // function spawnStormtrooper() {
-        //     const stormtrooper = new Stormtrooper();
-        //     this.add(stormtrooper);
-        // }
+        player.on('collisionstart', function (event) {
+            if (event.other instanceof Stormtrooper) {
+                player.pos = new Vector(250, 600);
+                lives--;
+            }
+            if (event.other instanceof DarthVader) {
+                player.kill();
+                lives = 0;
+            }
+            if (lives <= 0) {
+                player.kill();
+            }
+            if (player.isKilled()){
+                engine.goToScene('gameover');
+            }
+        });
+
+        if (
+            player.pos.y > 900) {
+            player.kill();
+            engine.goToScene('gameover');
+        }
 
 
 // Beweeg de speler naar links of rechts wanneer de linker- of rechterpijltoets wordt ingedrukt
@@ -61,7 +76,10 @@ export class RunMando extends Scene {
     }
 
     spawnEnemy() {
-        const stormtrooper = new Stormtrooper();
+        const stormtrooper = new Stormtrooper(1600, 300);
         this.add(stormtrooper);
+
+        const darthvader = new DarthVader(Math.floor(Math.random() * 10 + 1) * 1000, 300);
+        this.add(darthvader);
     }
 }

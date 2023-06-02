@@ -1,5 +1,5 @@
 import '../css/style.css';
-import {Actor, Color, Engine, Label, Physics, Scene, TextAlign, Vector, Input} from 'excalibur';
+import {Actor, CollisionType, Color, Engine, Label, Physics, Scene, TextAlign, Vector} from 'excalibur';
 import {Resources, ResourceLoader} from './resources.js';
 import {Mando} from './mando.js';
 import {Ground} from './ground.js';
@@ -9,35 +9,36 @@ import {Ground2} from './ground2.js';
 import {Ceiling} from './ceiling.js';
 import {DarthVader} from './darthvader.js';
 import {StartBackground} from './startBackground.js';
-import {Play} from './playImage.js';
+import {Home} from './homeImage.js';
 
-export class Start extends Scene {
+export class Gameover extends Scene {
     onInitialize(engine) {
 
-        const startbackground = new StartBackground();
-        this.add(startbackground);
+        const gameOverbackground = new StartBackground();
+        this.add(gameOverbackground);
 
-        const startText = new Label({
-            text: 'Click on the button below to fight the Empire!',
-            pos: new Vector(650, 250),
+        const gameOverText = new Label({
+            text: 'You died! Click on the Stormtrooper to go back to the start screen!',
+            pos: new Vector(600, 250),
             textAlign: TextAlign.Center,
             fontSize: 40,
             color: Color.White
         });
-        this.add(startText);
+        this.add(gameOverText);
 
-        const startButton = new Play({
+        const backButton = new Home({
             x: 750,
             y: 410,
             width: 200,
             height: 50,
             anchor: new Vector(0.5, 0.5),
         });
-        this.add(startButton);
+        this.add(backButton);
 
-        startButton.on('pointerup', () => {
-            engine.goToScene('runmando'); // Stuur de gebruiker naar de speelscene
+        backButton.on('pointerup', () => {
+            engine.goToScene('start'); // Stuur de gebruiker naar de startscene
         });
+
 
     }
 }

@@ -21,8 +21,5 @@ export class Ground extends Actor {
         if (this.pos.x < -780) {
             this.pos = new Vector(3200, Math.random() * 300 + 560)
         }
-        if (this.pos.x < -780) {
-            engine.spawnStormtrooper()
-        }
     }
 }

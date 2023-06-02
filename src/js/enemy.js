@@ -3,16 +3,16 @@ import {Resources} from './resources.js';
 import {Mando} from './mando.js';
 
 export class Enemy extends Actor {
-    constructor() {
+    constructor(posX, posY) {
         super({
             width: 100,
-            height: Resources.Stormtrooper.height,
-            pos: new Vector(1600, 300),
+            height: 600,
+            vel: new Vector(-300, 0)
         });
-        this.on('collisionstart', (event) => this.hitSomething(event));
+        this.body.collisionType = CollisionType.Active
+        this.body.useGravity = true;
+        this.vel = new Vector(-300, 1000)
     }
 
-    hitSomething(event) {
-        this.vel = new Vector(-300, 0);
-    }
+
 }
