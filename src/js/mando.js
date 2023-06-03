@@ -6,6 +6,7 @@ import {Ground2} from './ground2.js';
 import {DarthVader} from './darthvader.js';
 import {Stormtrooper} from './stormtrooper.js';
 import {RunMando} from './runmando.js';
+import {Bullet} from './bullet.js';
 
 export class Mando extends Actor {
     constructor(posX, posY) {
@@ -18,7 +19,9 @@ export class Mando extends Actor {
         this.body.useGravity = true;
         this.graphics.use(Resources.Mando.toSprite());
         this.scale = new Vector(0.8, 0.8);
+        this.bullet = new Bullet();
     }
+
 
     onPreUpdate(engine, delta) {
         if (engine.input.keyboard.wasPressed(Input.Keys.Space) && this.vel.y === 0) {
@@ -54,4 +57,5 @@ export class Mando extends Actor {
     fall() {
         this.vel = this.vel.add(new Vector(0, 100));
     }
+
 }

@@ -8,6 +8,7 @@ import ceilingImage from '../images/ceiling.png'
 import darthVaderImage from '../images/darthvader.png'
 import playImage from '../images/play.png'
 import homeImage from '../images/home.png'
+import bulletImage from '../images/blasterbolt.png'
 
 const Resources = {
     Mando: new ImageSource(mandoImage),
@@ -19,6 +20,7 @@ const Resources = {
     DarthVader: new ImageSource(darthVaderImage),
     Play: new ImageSource(playImage),
     Home: new ImageSource(homeImage),
+    Bullet: new ImageSource(bulletImage),
 }
 
 // met deze for loop hoef je niet alles handmatig in de loader te zetten
