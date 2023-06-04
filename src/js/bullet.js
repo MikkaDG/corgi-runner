@@ -15,6 +15,7 @@ export class Bullet extends Actor {
         this.on('collisionstart', (event) => this.hitSomething(event));
     }
 
+
     onInitialize(engine) {
         super.onInitialize(engine)
         this.graphics.use(Resources.Bullet.toSprite())
