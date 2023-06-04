@@ -36,5 +36,8 @@ export class Background extends Actor {
             this.pos = new Vector(0, 0);
             this.game.currentScene.spawnEnemy();
         }
+        if (this.pos.x < -0){
+            this.game.currentScene.updateScoreLabel();
+        }
     }
 }

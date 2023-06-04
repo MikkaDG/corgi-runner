@@ -1,5 +1,5 @@
 import '../css/style.css';
-import {Actor, Color, Engine, Label, Physics, Scene, TextAlign, Vector, Input} from 'excalibur';
+import {Actor, Color, Engine, Label, Physics, Scene, TextAlign, Vector, Input, Font, FontUnit} from 'excalibur';
 import {Resources, ResourceLoader} from './resources.js';
 import {Mando} from './mando.js';
 import {Ground} from './ground.js';
@@ -18,22 +18,40 @@ export class Start extends Scene {
         this.add(startbackground);
 
         const startText = new Label({
-            text: 'Click on the button below to fight the Empire!',
-            pos: new Vector(650, 250),
+            text: 'Help Mando fight the Empire!',
+            pos: new Vector(520, 250),
             textAlign: TextAlign.Center,
-            fontSize: 40,
-            color: Color.White
+            color: Color.Yellow,
+            font: new Font({
+                family: 'impact',
+                size: 40,
+                unit: FontUnit.Px
+            })
         });
         this.add(startText);
 
         const startButton = new Play({
-            x: 750,
-            y: 410,
             width: 200,
             height: 50,
             anchor: new Vector(0.5, 0.5),
         });
         this.add(startButton);
+
+        const instructions = new Label({
+            text: 'Move - < >' +
+                '\nJump - SPACEBAR' +
+                '\nShoot - X',
+            pos: new Vector(660, 320),
+            textAlign: TextAlign.Center,
+            color: Color.Yellow,
+            font: new Font({
+                family: 'impact',
+                size: 24,
+                unit: FontUnit.Px
+            })
+        });
+        this.add(instructions);
+
 
         startButton.on('pointerup', () => {
             engine.goToScene('runmando'); // Stuur de gebruiker naar de speelscene

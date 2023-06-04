@@ -9,6 +9,6 @@ export class Play extends Actor {
         });
         this.graphics.use(Resources.Play.toSprite());
         this.scale = new Vector(0.1, 0.1);
-        this.pos = new Vector(750, 410);
+        this.pos = new Vector(750, 500);
     }
 }
