@@ -82,7 +82,6 @@ export class RunMando extends Scene {
 
         player.on('collisionstart', (event) => {
             if (event.other instanceof Stormtrooper) {
-                player.pos = new Vector(250, 400);
                 this.lives--;
                 this.updateLivesLabel();
                 if (this.lives <= 0) {

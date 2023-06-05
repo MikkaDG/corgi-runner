@@ -9,8 +9,8 @@ export class BobaFettSelect extends Actor {
         });
         this.pos = new Vector(1200, 320);
         this.scale = new Vector(0.5, 0.5);
-
     }
+
 
     onInitialize(engine) {
         this.game = engine;
