@@ -11,6 +11,7 @@ import {Ceiling} from './ceiling.js';
 import {RunMando} from './runmando.js';
 import {Start} from './start.js';
 import {GameOver} from './gameover.js';
+import {Pause} from './pause.js';
 
 export class Game extends Engine {
 
@@ -27,6 +28,7 @@ export class Game extends Engine {
         this.addScene('start', new Start());
         this.addScene('runmando', new RunMando());
         this.addScene('gameover', new GameOver());
+        this.addScene('pause', new Pause());
 
         this.goToScene('start');
 

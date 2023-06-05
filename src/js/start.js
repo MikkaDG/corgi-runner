@@ -50,12 +50,14 @@ export class Start extends Scene {
                 unit: FontUnit.Px
             })
         });
-        this.add(instructions);
-
+        this.add(instructions)
 
         startButton.on('pointerup', () => {
-            engine.goToScene('runmando'); // Stuur de gebruiker naar de speelscene
+            this.resetGame();
         });
-
     }
+
+        resetGame() {
+            this.engine.goToScene('runmando');
+        }
 }

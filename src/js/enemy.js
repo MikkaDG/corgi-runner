@@ -7,12 +7,17 @@ export class Enemy extends Actor {
         super({
             width: 100,
             height: 600,
-            vel: new Vector(-300, 0)
+            vel: new Vector(-500, 1000)
         });
         this.body.collisionType = CollisionType.Active
         this.body.useGravity = true;
-        this.vel = new Vector(-300, 1000)
+        this.on('collisionstart', (event) => this.hitSomething(event));
     }
 
-
+    hitSomething(event) {
+        this.vel = new Vector(-500, 1000)
+        if (event.other instanceof Mando) {
+            this.kill()
+        }
+    }
 }

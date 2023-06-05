@@ -8,6 +8,13 @@ import {Stormtrooper} from './stormtrooper.js';
 import {RunMando} from './runmando.js';
 import {Bullet} from './bullet.js';
 
+let sprite = 1;
+
+export function setSprite(newSprite) {
+    sprite = newSprite;
+}
+
+
 export class Mando extends Actor {
     constructor(posX, posY) {
         super({
@@ -17,7 +24,6 @@ export class Mando extends Actor {
         this.pos = new Vector(posX, posY);
         this.body.collisionType = CollisionType.Active;
         this.body.useGravity = true;
-        this.graphics.use(Resources.Mando.toSprite());
         this.scale = new Vector(0.8, 0.8);
         this.bullet = new Bullet();
     }
@@ -46,6 +52,20 @@ export class Mando extends Actor {
             engine.goToScene('gameover');
         }
 
+    }
+
+    onPostUpdate(engine , delta) {
+        // if (engine.input.keyboard.wasPressed(Input.Keys.M)) {
+        //     this.sprite = 1;
+        // }
+        // if (engine.input.keyboard.wasPressed(Input.Keys.B)) {
+        //     this.sprite = 2;
+        // }
+        if (sprite === 1) {
+            this.graphics.use(Resources.Mando.toSprite());
+        } else if (sprite === 2) {
+            this.graphics.use(Resources.BoKatan.toSprite());
+        }
     }
 
     jump() {

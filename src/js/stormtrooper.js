@@ -11,7 +11,6 @@ export class Stormtrooper extends Enemy {
         })
         this.pos = new Vector(posX, posY);
         this.scale = new Vector(0.30, 0.30)
-        this.on('collisionstart', (event) => this.hitSomething(event));
     }
 
     onInitialize(engine) {
@@ -19,7 +18,5 @@ export class Stormtrooper extends Enemy {
         this.graphics.use(Resources.Stormtrooper.toSprite())
     }
 
-    hitSomething() {
-        this.vel = new Vector(-300, 0);
-    }
+
 }

@@ -9,14 +9,15 @@ import {Ground2} from './ground2.js';
 import {Ceiling} from './ceiling.js';
 import {DarthVader} from './darthvader.js';
 import {Bullet} from './bullet.js';
+import {Deathfloor} from './deathfloor.js';
+import { Sound } from 'excalibur';
 
 export class RunMando extends Scene {
     scoreLabel;
     livesLabel;
     lives;
-    darthvaderLives = 3;
+    darthvaderLives = 5;
     scores = [];
-
 
     onInitialize(engine) {
 
@@ -48,6 +49,9 @@ export class RunMando extends Scene {
         const ceiling = new Ceiling();
         this.add(ceiling);
 
+        const deathfloor = new Deathfloor();
+        this.add(deathfloor);
+
         const player = new Mando(250, 600);
         this.add(player);
 
@@ -64,6 +68,18 @@ export class RunMando extends Scene {
         });
         this.add(this.livesLabel);
 
+        const pause = new Label({
+            text: 'Press P to PAUSE',
+            pos: new Vector(650, 80),
+            color: Color.Yellow,
+            font: new Font({
+                family: 'impact',
+                size: 30,
+                unit: FontUnit.Px
+            })
+        });
+        this.add(pause);
+
         player.on('collisionstart', (event) => {
             if (event.other instanceof Stormtrooper) {
                 player.pos = new Vector(250, 400);
@@ -71,34 +87,28 @@ export class RunMando extends Scene {
                 this.updateLivesLabel();
                 if (this.lives <= 0) {
                     player.kill();
+                    localStorage.setItem('scores', JSON.stringify(this.score));
+                    this.resetGame();
                     engine.goToScene('gameover');
-                    this.scores.push(this.score);
-                    this.scores.sort((a, b) => b - a);
-                    localStorage.setItem('scores', JSON.stringify(this.scores));
                 }
             }
             if (event.other instanceof DarthVader) {
                 player.kill();
                 this.lives = 0;
                 this.updateLivesLabel();
+                localStorage.setItem('scores', JSON.stringify(this.score));
+                this.resetGame();
                 engine.goToScene('gameover');
-                this.scores.push(this.score);
-                this.scores.sort((a, b) => b - a);
-                localStorage.setItem('scores', JSON.stringify(this.scores));
+            }
+            if (event.other instanceof Deathfloor) {
+                player.kill();
+                this.lives = 0;
+                this.updateLivesLabel();
+                localStorage.setItem('scores', JSON.stringify(this.score));
+                this.resetGame();
+                engine.goToScene('gameover');
             }
         });
-        if (player.pos.y > 900) {
-            player.kill();
-        }
-
-        if (player.isKilled()) {
-            console.log(this.scores)
-            this.scores.push(this.score);
-            this.scores.sort((a, b) => b - a);
-            localStorage.setItem('scores', JSON.stringify(this.scores));
-            engine.goToScene('gameover');
-
-        }
 
 
         // this.game.input.gamepads.on('connect', function (event) {
@@ -143,6 +153,9 @@ export class RunMando extends Scene {
             console.log('shoot');
             this.spawnBullet(player.pos.x, player.pos.y);
         }
+        if (engine.input.keyboard.wasPressed(Input.Keys.KeyP)) {
+            engine.goToScene('pause'); // Schakel over naar het pauzescherm
+        }
     }
 
     generateRandomNumber(min, max) {
@@ -173,16 +186,16 @@ export class RunMando extends Scene {
             if (event.other instanceof Stormtrooper) {
                 bullet.kill();
                 event.other.kill();
-                this.score+=500;
+                this.score += 1000;
                 this.updateScoreLabel();
             }
             if (event.other instanceof DarthVader) {
                 this.darthvaderLives--;
                 if (this.darthvaderLives <= 0) {
                     event.other.kill();
-                    this.score+=2000;
+                    this.score += 5000;
                     this.updateScoreLabel();
-                    this.darthvaderLives = 3;
+                    this.darthvaderLives = 5;
                 }
             }
         });
@@ -196,5 +209,14 @@ export class RunMando extends Scene {
 
     updateLivesLabel() {
         this.livesLabel.text = 'LIVES: ' + this.lives;
+    }
+
+    resetGame() {
+        this.score = 0;
+        this.lives = 3;
+        this.updateScoreLabel();
+        this.updateLivesLabel();
+        this.darthvaderLives = 5;
+        this.add(new Mando(250, 600));
     }
 }

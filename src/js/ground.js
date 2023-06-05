@@ -14,7 +14,7 @@ export class Ground extends Actor {
         this.graphics.use(Resources.Ground.toSprite())
         this.body.collisionType = CollisionType.Fixed
         this.body.useGravity = false
-        this.vel = new Vector(-300, 0)
+        this.vel = new Vector(-500, 0)
     }
 
     onPreUpdate(engine, delta) {

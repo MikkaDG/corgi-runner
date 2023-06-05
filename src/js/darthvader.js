@@ -11,7 +11,7 @@ export class DarthVader extends Enemy {
         })
         this.pos = new Vector(posX, posY);
         this.scale = new Vector(0.35, 0.35)
-        this.on('collisionstart', (event) => this.hitSomething(event));
+        // this.on('collisionstart', (event) => this.hitSomething(event));
     }
 
     onInitialize(engine) {
@@ -19,7 +19,7 @@ export class DarthVader extends Enemy {
         this.graphics.use(Resources.DarthVader.toSprite())
     }
 
-    hitSomething() {
-        this.vel = new Vector(-300, 0);
-    }
+    // hitSomething() {
+    //     this.vel = new Vector(-300, 0);
+    // }
 }
