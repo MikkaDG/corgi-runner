@@ -54,17 +54,18 @@ export class Mando extends Actor {
 
     }
 
-    onPostUpdate(engine , delta) {
-        // if (engine.input.keyboard.wasPressed(Input.Keys.M)) {
-        //     this.sprite = 1;
-        // }
-        // if (engine.input.keyboard.wasPressed(Input.Keys.B)) {
-        //     this.sprite = 2;
-        // }
+    onPostUpdate(engine, delta) {
         if (sprite === 1) {
             this.graphics.use(Resources.Mando.toSprite());
-        } else if (sprite === 2) {
+        }
+        if (sprite === 2) {
             this.graphics.use(Resources.BoKatan.toSprite());
+        }
+        if (sprite === 3) {
+            this.graphics.use(Resources.HanSolo.toSprite());
+        }
+        if (sprite === 4) {
+            this.graphics.use(Resources.BobaFett.toSprite());
         }
     }
 
