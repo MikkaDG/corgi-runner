@@ -1,6 +1,5 @@
 import '../css/style.css';
 import {Actor, Color, Engine, Events, Font, FontUnit, Input, Label, Physics, Scene, TextAlign, Vector} from 'excalibur';
-import {Resources, ResourceLoader} from './resources.js';
 import {Mando} from './mando.js';
 import {Ground} from './ground.js';
 import {Background} from './background.js';

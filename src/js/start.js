@@ -1,13 +1,5 @@
 import '../css/style.css';
 import {Actor, Color, Engine, Label, Physics, Scene, TextAlign, Vector, Input, Font, FontUnit} from 'excalibur';
-import {Resources, ResourceLoader} from './resources.js';
-import {Mando} from './mando.js';
-import {Ground} from './ground.js';
-import {Background} from './background.js';
-import {Stormtrooper} from './stormtrooper.js';
-import {Ground2} from './ground2.js';
-import {Ceiling} from './ceiling.js';
-import {DarthVader} from './darthvader.js';
 import {StartBackground} from './startBackground.js';
 import {Play} from './playImage.js';
 
