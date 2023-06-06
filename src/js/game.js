@@ -34,6 +34,10 @@ export class Game extends Engine {
 
 
     }
+
+    onPreUpdate(_engine, _delta) {
+        console.log(this.currentScene.actors.length);
+    }
 }
 
 new Game();

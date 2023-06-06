@@ -14,8 +14,10 @@ export function setSprite(newSprite) {
     sprite = newSprite;
 }
 
-
 export class Mando extends Actor {
+
+    game
+
     constructor(posX, posY) {
         super({
             width: Resources.Mando.width,
@@ -28,7 +30,16 @@ export class Mando extends Actor {
         this.bullet = new Bullet();
     }
 
+    onInitialize(engine) {
+        this.game = engine
+        this.on('collisionstart', (event) => this.onCollisionStart(event));
+        this.on('exitviewport', (event) => this.die(event))
+    }
 
+    die(event) {
+        this.game.currentScene.resetGame();
+        this.kill();
+    }
     onPreUpdate(engine, delta) {
         if (engine.input.keyboard.wasPressed(Input.Keys.Space) && this.vel.y === 0) {
             this.jump();
@@ -46,11 +57,11 @@ export class Mando extends Actor {
             this.vel = new Vector(0, 0);
             this.pos = new Vector(750, 450);
         }
-        if (
-            this.pos.y > 900) {
-            this.kill();
-            engine.goToScene('gameover');
-        }
+        // if (
+        //     this.pos.y > 900) {
+        //     this.kill();
+        //     engine.goToScene('gameover');
+        // }
 
     }
 
@@ -79,4 +90,20 @@ export class Mando extends Actor {
         this.vel = this.vel.add(new Vector(0, 100));
     }
 
+    onCollisionStart(event) {
+        if (event.other instanceof Stormtrooper) {
+            this.game.currentScene.decreaseLives()
+            if (this.game.currentScene.lives <= 0) {
+                this.kill();
+                console.log(this.game.currentScene);
+                this.game.currentScene.resetGame();
+
+            }
+        }
+        if (event.other instanceof DarthVader) {
+            this.kill();
+            console.log(this.game.currentScene);
+            this.game.currentScene.resetGame();
+        }
+    }
 }

@@ -17,7 +17,9 @@ export class RunMando extends Scene {
     livesLabel;
     lives;
     darthvaderLives = 5;
-    scores = [];
+    // scores = [];
+    player
+    game
 
     onInitialize(engine) {
 
@@ -46,14 +48,14 @@ export class RunMando extends Scene {
         const ground2 = new Ground2();
         this.add(ground2);
 
-        const ceiling = new Ceiling();
-        this.add(ceiling);
+        // const ceiling = new Ceiling();
+        // this.add(ceiling);
 
-        const deathfloor = new Deathfloor();
-        this.add(deathfloor);
+        // const deathfloor = new Deathfloor();
+        // this.add(deathfloor);
 
-        const player = new Mando(250, 600);
-        this.add(player);
+        this.player = new Mando(250, 600);
+        this.add(this.player);
 
         this.lives = 3;
         this.livesLabel = new Label({
@@ -80,34 +82,17 @@ export class RunMando extends Scene {
         });
         this.add(pause);
 
-        player.on('collisionstart', (event) => {
-            if (event.other instanceof Stormtrooper) {
-                this.lives--;
-                this.updateLivesLabel();
-                if (this.lives <= 0) {
-                    player.kill();
-                    localStorage.setItem('scores', JSON.stringify(this.score));
-                    this.resetGame();
-                    engine.goToScene('gameover');
-                }
-            }
-            if (event.other instanceof DarthVader) {
-                player.kill();
-                this.lives = 0;
-                this.updateLivesLabel();
-                localStorage.setItem('scores', JSON.stringify(this.score));
-                this.resetGame();
-                engine.goToScene('gameover');
-            }
-            if (event.other instanceof Deathfloor) {
-                player.kill();
-                this.lives = 0;
-                this.updateLivesLabel();
-                localStorage.setItem('scores', JSON.stringify(this.score));
-                this.resetGame();
-                engine.goToScene('gameover');
-            }
-        });
+
+
+            // if (event.other instanceof Deathfloor) {
+            //     player.kill();
+            //     this.lives = 0;
+            //     this.updateLivesLabel();
+            //     localStorage.setItem('scores', JSON.stringify(this.score));
+            //     this.resetGame();
+            //     engine.goToScene('gameover');
+            // }
+
 
 
         // this.game.input.gamepads.on('connect', function (event) {
@@ -124,7 +109,7 @@ export class RunMando extends Scene {
         //     } else if (this.game.button === ex.Input.Buttons.DpadRight) {
         //         player.vel.x = 300;
         //     } else if (this.game.button === ex.Input.Buttons.Face1) {
-        //         player.vel.y = -600;
+        //         this.player.vel.y = -600;
         //     }
         // });
 
@@ -132,16 +117,16 @@ export class RunMando extends Scene {
 // Beweeg de speler naar links of rechts wanneer de linker- of rechterpijltoets wordt ingedrukt
         engine.input.keyboard.on('down', (evt) => {
             if (evt.key === 'ArrowLeft' || evt.key === 'a') {
-                player.vel.x = -600; // verplaats de speler met een snelheid van -600 pixels per seconde naar links
+                this.player.vel.x = -600; // verplaats de speler met een snelheid van -600 pixels per seconde naar links
             } else if (evt.key === 'ArrowRight' || evt.key === 'd') {
-                player.vel.x = 300; // verplaats de speler met een snelheid van 300 pixels per seconde naar rechts
+                this.player.vel.x = 300; // verplaats de speler met een snelheid van 300 pixels per seconde naar rechts
             }
         });
 
 // Stop de beweging van de speler wanneer de linker- of rechterpijltoets wordt losgelaten
         engine.input.keyboard.on('up', (evt) => {
             if (evt.key === 'ArrowLeft' || evt.key === 'ArrowRight' || evt.key === 'a' || evt.key === 'd') {
-                player.vel.x = 0; // stop de beweging van de speler
+                this.player.vel.x = 0; // stop de beweging van de speler
             }
         });
     }
@@ -150,7 +135,7 @@ export class RunMando extends Scene {
         const player = this.actors.find(actor => actor instanceof Mando);
         if (engine.input.keyboard.wasPressed(Input.Keys.KeyX)) {
             console.log('shoot');
-            this.spawnBullet(player.pos.x, player.pos.y);
+            this.spawnBullet(this.player.pos.x, this.player.pos.y);
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.KeyP)) {
             engine.goToScene('pause'); // Schakel over naar het pauzescherm
@@ -169,7 +154,7 @@ export class RunMando extends Scene {
             this.add(stormtrooper);
         }
 
-        const darthvader = new DarthVader(Math.floor(Math.random() * 5 + 1) * 2000, 500);
+        const darthvader = new DarthVader(this.generateRandomNumber(1500, 3000), 500);
         this.add(darthvader);
     }
 
@@ -200,6 +185,14 @@ export class RunMando extends Scene {
         });
     }
 
+    decreaseLives() {
+        this.lives--;
+        this.updateLivesLabel();
+    }
+    // resetLives() {
+    //     this.lives = 0;
+    //     this.updateLivesLabel();
+    // }
 
     updateScoreLabel() {
         this.score++;
@@ -211,11 +204,16 @@ export class RunMando extends Scene {
     }
 
     resetGame() {
-        this.score = 0;
-        this.lives = 3;
-        this.updateScoreLabel();
-        this.updateLivesLabel();
-        this.darthvaderLives = 5;
-        this.add(new Mando(250, 600));
+        console.log('reset game');
+        localStorage.setItem('scores', JSON.stringify(this.score));
+
+        // this.score = 0;
+        // this.lives = 3;
+        // this.updateScoreLabel();
+        // this.updateLivesLabel();
+        // this.darthvaderLives = 5;
+        // this.add(new Mando(250, 600));
+
+        this.game.goToScene('gameover');
     }
 }

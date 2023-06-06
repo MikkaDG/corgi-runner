@@ -4,9 +4,9 @@ import {Resources} from "./resources.js";
 export class Deathfloor extends Actor {
     constructor() {
         super({
-            width: Resources.Ceiling.width,
+            width: 8000,
             height: Resources.Ceiling.height,
-            pos: new Vector(1000, 920)
+            pos: new Vector(3000, 920)
         })
     }
 
